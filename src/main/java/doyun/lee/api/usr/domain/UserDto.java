@@ -1,55 +1,66 @@
 package doyun.lee.api.usr.domain;
 
-import java.util.*;
-
-import org.springframework.context.annotation.Lazy;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.validation.constraints.*;
+import java.util.List;
 
 @Component
-@Lazy
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 public class UserDto {
 
-	private static final long serialVersionUID = 1L;
-	private Long usrNo;
+    private static final long serialVersionUID = 1L;
 
-//	@Size(min = 2, max = 8, message = "이름을 2~8자 사이로 입력해주세요.")
-	private String usrName;
+    private Long usrNo;
+
+    @NotEmpty @NotNull
+    @Pattern(regexp = "^[a-zA-Z0-9][\\w]{7,17}$", message = "8자리 이상 18자리 이하의 숫자만 입력가능합니다.")
+    private String username;    // 아이디
+
+    @NotEmpty @NotNull
+    @Pattern(regexp = "^[a-zA-Z가-힣]{2,12}$")
+    private String usrName;     // 이름
 
 
-	private String usrEmail;
+    @NotEmpty @NotNull
+    private String usrEmail;    // 이메일
 
-	private String usrPwd;
-	private String usrAges;
-	private String usrCity;
-	private String usrGender;
-	private String usrPhone;
-	private String usrAddr;
-	private String usrNickname;
-	private String usrId;
 
-	@Builder
-	public UserDto(String usrName, String usrEmail, String usrPwd, String usrPhone, String usrNickname) {
-		super();
-		this.usrName = usrName;
-		this.usrEmail = usrEmail;
-		this.usrPwd = usrPwd;
-		this.usrPhone = usrPhone;
-		this.usrNickname = usrNickname;
-	}
+    @NotEmpty @NotNull
+    @Pattern(regexp = "[\\.가-힣]*[\\w-]{4,17}$")
+    private String password;    // 비밀번호
 
-	public UserDto(String usrEmail, String usrNickname) {
-		this.usrEmail = usrEmail;
-		this.usrNickname = usrNickname;
-	}
 
+    @NotEmpty @NotNull
+    @Pattern(regexp = "^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$")
+    private String usrPhone;    // 전화번호
+
+    @NotEmpty @NotNull
+    @Pattern(regexp = "^[\\w가-힣]{2,15}$", message = "2자리 이상 15 이내의 글자를 입력해주세요.")
+    private String usrNickname; // 닉네임
+
+
+    //	@ApiModelProperty(position = 3)
+    List<Role> roles;       // 레벨
+
+    private String usrAges;
+    private String usrCity;
+    private String usrGender;
+    private String usrAddr;
+
+
+    public UserVo toEntity() {
+        return UserVo.builder()
+                .usrName(usrName)
+                .username(username)
+                .usrNickname(usrNickname)
+                .usrEmail(usrEmail)
+                .usrPhone(usrPhone)
+                .build();
+    }
+
+/*
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
@@ -58,12 +69,11 @@ public class UserDto {
 		UserDto that = (UserDto) o;
 		return Objects.equals(usrNo, that.usrNo);
 	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(usrNo);
 	}
-
+*/
 
 
 }

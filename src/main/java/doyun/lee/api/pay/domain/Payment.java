@@ -32,7 +32,7 @@ public class Payment {
    
    @ManyToOne
    @JoinColumn(name="usr_no")
-   private UserVo user;
+   private UserVo userVo;
    
    @ManyToOne
    @JoinColumn(name="prd_no")
