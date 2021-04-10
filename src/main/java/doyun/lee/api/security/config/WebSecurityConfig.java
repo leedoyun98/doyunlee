@@ -51,7 +51,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()//
                 .antMatchers("/usr/signin").permitAll()//
                 .antMatchers("/usr/signup").permitAll()//
-                .antMatchers("/board/blogAll").permitAll()//
+                .antMatchers("/board/*").permitAll()//
+                .antMatchers("/board/*/*").permitAll()//
+                .antMatchers("/usr/*").permitAll()//
+                .antMatchers("/replies/*").permitAll()//
+                .antMatchers("/replies/*/*").permitAll()//
+                .antMatchers("/products/*").permitAll()//
+                .antMatchers("/products/*/*").permitAll()//
                 .antMatchers("/h2-console/**/**").permitAll()
                 // Disallow everything else..
                 .anyRequest().authenticated();

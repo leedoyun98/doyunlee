@@ -2,12 +2,17 @@ package doyun.lee.api.usr.repository;
 
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+
+import static doyun.lee.api.brd.domain.QBoard.board;
 import static doyun.lee.api.usr.domain.QUserVo.userVo;
+
+import doyun.lee.api.brd.domain.Board;
 import doyun.lee.api.usr.domain.UserVo;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,5 +82,8 @@ public class UserRepositoryImpl extends QuerydslRepositorySupport implements IUs
                         .fetchOne());
     }
 
-
+    @Override
+    public UserVo findByAll(UserVo user) {
+        return queryFactory.selectFrom(userVo).where(userVo.usrNo.eq(user.getUsrNo())).fetchOne();
+    }
 }

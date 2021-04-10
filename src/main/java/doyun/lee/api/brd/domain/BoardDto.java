@@ -24,7 +24,8 @@ public class BoardDto {
 	 private long count;
 	 private String brdLike;
 	 private String brdPwd;
-	 private String brdNikcname;
+	 private String usrName;
+	 private String usrNo;
 	 
 		
 }

@@ -30,9 +30,12 @@ public class BoardServiceImpl extends AbstractService<Board> implements BoardSer
 	private final BoardRepository repository;
 	
 	@Override public long save(Board t) {
-		String date = String.format("%s %s", LocalDate.now(), LocalDateTime.now().format(DateTimeFormatter.ofPattern("a HH시 mm분")));
-        t.setBrdWrtDate(date);
-		return (repository.save(t)!=null) ? 1:0;}
+		String title = t.getBrdTitle();
+			String date = String.format("%s %s", LocalDate.now(), LocalDateTime.now().format(DateTimeFormatter.ofPattern("a HH시 mm분")));
+			t.setBrdWrtDate(date);
+			return (repository.save(t)!=null) ? 1:0;
+
+	}
 	@Override public long count() {return (long)repository.count();}
 	@Override public Board getOne(long id) {return repository.getOne(id);}
 	@Override public Optional<Board> findById(long id){return repository.findById(id);}
@@ -58,11 +61,16 @@ public class BoardServiceImpl extends AbstractService<Board> implements BoardSer
 	public List<Board> blogListAll() {
 		return repository.blogListAll();
 	}
+	public List<Board> reviewAll() {
+		return repository.reviewAll();
+	}
 	public long update(BoardDto dto) {
 		Board map = findById(dto.getBrdNo()).get();
-		map.setBrdTitle(dto.getBrdTitle());
-		map.setBrdContent(dto.getBrdContent());
-     		return repository.save(map)==null? 1:0;
+			map.setBrdTitle(dto.getBrdTitle());
+			map.setBrdContent(dto.getBrdContent());
+			return repository.save(map)==null? 1:0;
+
+
 	}
 
 	

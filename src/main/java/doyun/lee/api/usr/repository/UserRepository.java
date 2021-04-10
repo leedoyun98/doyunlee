@@ -1,6 +1,8 @@
 package doyun.lee.api.usr.repository;
 
+import doyun.lee.api.brd.domain.Board;
 import doyun.lee.api.usr.domain.UserVo;
+import org.h2.engine.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.jdo.annotations.Transactional;
@@ -17,6 +19,8 @@ interface IUserRepository {
 	Optional<UserVo> findUserById(String email);
 	Optional<UserVo> updateProfile(String email, String password);
 	List<UserVo> findAllUser();
+
+	UserVo findByAll(UserVo user);
 }
 
 

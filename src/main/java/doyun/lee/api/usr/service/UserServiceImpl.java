@@ -1,5 +1,6 @@
 package doyun.lee.api.usr.service;
 
+import doyun.lee.api.brd.domain.Board;
 import doyun.lee.api.cmm.service.AbstractService;
 import doyun.lee.api.security.domain.SecurityProvider;
 import doyun.lee.api.security.exception.SecurityRuntimeException;
@@ -12,6 +13,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
+import org.h2.engine.User;
 import org.springframework.http.HttpStatus;
 
 
@@ -97,13 +99,18 @@ public class UserServiceImpl extends AbstractService<UserVo> implements UserServ
 
 
     @Override
-    public String signin(String username, String password) {
+    public Map<String,Object> signin(String username, String password) {
         try {
+            Map<String, Object> map = new HashMap<>();
             //	manager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             System.out.println("ID: " + username);
-            String tok = provider.createToken(username, userRepository.findByUsername(username).getRoles());
+            UserVo user = userRepository.findByUsername(username);
+            List<Role> roles = user.getRoles();
+            String tok = provider.createToken(username, roles);
+            map.put("token",provider.createToken(username, roles));
+            map.put("user",user);
             System.out.println("token :: " + tok);
-            return tok;
+            return map;
         } catch (AuthenticationException e) {
             throw new SecurityRuntimeException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
         }
@@ -172,6 +179,9 @@ public class UserServiceImpl extends AbstractService<UserVo> implements UserServ
     @Override public long count() { return 0; }
     @Override public Optional<UserVo> findById(long id) { return null; }
     @Override public boolean existsById(long id) { return false; }
+
+
+
     @Override public UserVo getOne(long id) { return userRepository.getOne(id); }
 
     @Override
@@ -183,4 +193,9 @@ public class UserServiceImpl extends AbstractService<UserVo> implements UserServ
     public String refresh(String username) {
         return provider.createToken(username, userRepository.findByUsername(username).getRoles());
     }
+    public UserVo all(UserVo user) {
+        return userRepository.findByAll(user);
+    }
+
+
 }

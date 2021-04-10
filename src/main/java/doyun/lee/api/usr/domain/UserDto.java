@@ -14,30 +14,25 @@ public class UserDto {
 
     private Long usrNo;
 
-    @NotEmpty @NotNull
-    @Pattern(regexp = "^[a-zA-Z0-9][\\w]{7,17}$", message = "8자리 이상 18자리 이하의 숫자만 입력가능합니다.")
+
     private String username;    // 아이디
 
-    @NotEmpty @NotNull
-    @Pattern(regexp = "^[a-zA-Z가-힣]{2,12}$")
+
     private String usrName;     // 이름
 
 
-    @NotEmpty @NotNull
+
     private String usrEmail;    // 이메일
 
 
-    @NotEmpty @NotNull
-    @Pattern(regexp = "[\\.가-힣]*[\\w-]{4,17}$")
+
     private String password;    // 비밀번호
 
 
-    @NotEmpty @NotNull
-    @Pattern(regexp = "^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$")
+
     private String usrPhone;    // 전화번호
 
-    @NotEmpty @NotNull
-    @Pattern(regexp = "^[\\w가-힣]{2,15}$", message = "2자리 이상 15 이내의 글자를 입력해주세요.")
+
     private String usrNickname; // 닉네임
 
 

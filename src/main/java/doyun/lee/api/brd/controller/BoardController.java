@@ -45,7 +45,7 @@ public class BoardController extends AbstractController<Board> {
 		return ResponseEntity.ok(service.save(t));
 	}
 	
-	@DeleteMapping("/delete/{brdNo}")
+	@DeleteMapping("/delete")
 	public ResponseEntity<Long> delete(@RequestBody Board brdNo) {
 		System.out.println("삭제");
 		return ResponseEntity.ok(service.delete(brdNo));
@@ -84,14 +84,14 @@ public class BoardController extends AbstractController<Board> {
 	@GetMapping("/opt/{brdNo}")
 	public ResponseEntity<Board> findByBrd(@PathVariable Board brdNo){
 		System.out.println("페이지");
-
 		return ResponseEntity.ok(service.findByBrd(brdNo));
 	}
-	@GetMapping("/search")
+	@GetMapping("/search/{brdTitle}")
 	public ResponseEntity<List<Board>> search(@PathVariable String brdTitle){
 		System.out.println("검색");
 		return ResponseEntity.ok(service.search(brdTitle));
 	}
+
 
 	@PutMapping("/update/{brdNo}")
 	public ResponseEntity<Long> update(@PathVariable long brdNo,@RequestBody BoardDto t) {
@@ -106,4 +106,13 @@ public class BoardController extends AbstractController<Board> {
 
 		return ResponseEntity.ok(service.blogListAll());
 	}
+	@GetMapping("/review/all")
+	public ResponseEntity<List<Board>> reviewAll() {
+		System.out.println("리뷰 목록");
+
+		return ResponseEntity.ok(service.reviewAll());
+	}
+
+
+
 }

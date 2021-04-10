@@ -6,11 +6,12 @@ import doyun.lee.api.usr.domain.UserVo;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface UserService {
     // security default method
-    String signin(String username, String password);
+    Map<String,Object> signin(String username, String password);
     String signup(UserVo user);
     void delete(String username);
     UserVo whoami(HttpServletRequest req);

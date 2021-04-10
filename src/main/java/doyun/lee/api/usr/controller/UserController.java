@@ -1,9 +1,12 @@
 package doyun.lee.api.usr.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
+import doyun.lee.api.brd.domain.Board;
 import doyun.lee.api.usr.domain.UserDto;
 import doyun.lee.api.usr.domain.UserVo;
 import doyun.lee.api.usr.service.UserServiceImpl;
@@ -28,26 +31,26 @@ public class UserController {
     private final UserServiceImpl userService;
     private final ModelMapper modelMapper;
 
-    @PostMapping("/signin/")
+    @PostMapping("/signin")
     @ApiOperation(value = "${UserController.signin}")
     @ApiResponses(value = { //
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 422, message = "Invalid username/password supplied")})
-    public ResponseEntity<String> signin(@RequestBody UserVo user) {
+    public ResponseEntity<Map<String,Object>> signin(@RequestBody UserVo user) {
         logger.info("User Login Info: " + user.toString());
         return ResponseEntity.ok(userService.signin(user.getUsername(), user.getPassword()));
     }
 
 
-    @PostMapping("/signin/admin")
-    @ApiOperation(value = "${UserController.signin}")
-    @ApiResponses(value = { //
-            @ApiResponse(code = 400, message = "Something went wrong"), //
-            @ApiResponse(code = 422, message = "Invalid username/password supplied")})
-    public ResponseEntity<String> adminSignin(@RequestBody UserVo user) {
-        logger.info("User Login Info: " + user.toString());
-        return ResponseEntity.ok(userService.signin(user.getUsername(), user.getPassword()));
-    }
+//    @PostMapping("/signin/admin")
+//    @ApiOperation(value = "${UserController.signin}")
+//    @ApiResponses(value = { //
+//            @ApiResponse(code = 400, message = "Something went wrong"), //
+//            @ApiResponse(code = 422, message = "Invalid username/password supplied")})
+//    public ResponseEntity<String> adminSignin(@RequestBody UserVo user) {
+//        logger.info("User Login Info: " + user.toString());
+//        return ResponseEntity.ok(userService.signin(user.getUsername(), user.getPassword()));
+//    }
 
     @PostMapping("/signup")
     @ApiOperation(value = "${UserController.signup}")
@@ -73,6 +76,7 @@ public class UserController {
         logger.info("Find all users.");
         return ResponseEntity.ok(userService.findAll());
     }
+
 
     @PostMapping("/update/profile")
     public ResponseEntity<Optional<UserVo>> updateProfile(@RequestBody UserVo userVo) {
@@ -102,6 +106,13 @@ public class UserController {
     public ResponseEntity<Long> count() {
         logger.info("Query total count.");
         return ResponseEntity.ok(userService.count());
+    }
+
+    @GetMapping("/all/{usrNo}")
+    public ResponseEntity<UserVo> all(@PathVariable UserVo usrNo){
+        System.out.println("유저");
+
+        return ResponseEntity.ok(userService.all(usrNo));
     }
 
 

@@ -6,7 +6,7 @@ import static doyun.lee.api.brd.domain.QBoard.board;
 import javax.persistence.EntityManager;
 import javax.persistence.NamedQuery;
 import javax.transaction.Transactional;
-
+import static doyun.lee.api.usr.domain.QUserVo.userVo;
 import doyun.lee.api.brd.domain.Board;
 import doyun.lee.api.brd.domain.BoardDto;
 import org.hibernate.annotations.Where;
@@ -58,11 +58,17 @@ public class BoardRepositoryImpl extends QuerydslRepositorySupport implements IB
 	}
 	@Override
 	public List<Board> blogListAll(){
-
+//		System.out.println("===========================");
+//		 qf.select(board.brdTitle,board.brdWrtDate,userVo.usrNickname)
+//				.from(board).join(board.user,userVo).where(board.brdKind.eq(1L)).orderBy(board.brdWrtDate.desc()).fetch().stream().forEach(System.out::println);
+//		System.out.println("===========================");
 		return qf.selectFrom(board).where(board.brdKind.eq(1L)).orderBy(board.brdWrtDate.desc()).fetch();
 	}
 
-
+	@Override
+	public List<Board> reviewAll() {
+		return qf.selectFrom(board).where(board.brdKind.eq(2L)).orderBy(board.brdWrtDate.desc()).fetch();
+	}
 
 
 //	@SuppressWarnings("unchecked")
