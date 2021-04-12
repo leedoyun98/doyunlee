@@ -29,7 +29,7 @@ public class Board {
 	@Column(name="brd_pwd") private String brdPwd;
 	@Column(name="usr_name") private String usrName;
 	@Column(name="usr_no") private String usrNo;
-
+	private long productNo;
 	@OneToMany(mappedBy="board")
 	private List<Reply> replies = new ArrayList<>();
 	

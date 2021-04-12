@@ -5,8 +5,7 @@ import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
-@Data @Component @Lazy
+@Component @Data @Lazy
 public class CartDto {
-	private long cartNo;
-	private long cartAmount;
+	private long cartNo, carAmount;
 }

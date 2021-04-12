@@ -16,6 +16,8 @@ interface IBoardRepository{
 	public List<Board> blogListAll();
 
     public List<Board> reviewAll();
+
+	List<Board> reviewList();
 //	public void count(Object object);
 //	public List<Board> findByWriteDate(String writeDate);
 //	public List<BoardDto> findByUserNo(int usrNo);

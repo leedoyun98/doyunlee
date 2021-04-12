@@ -62,8 +62,5 @@ public class ReplyServiceImpl implements ReplyService{
         map.setRplContent(dto.getRplContent());
         return repository.save(map)==null? 1:0;
     }
-    public long replyBrdNo(){
-//        return repository.replyBrdNo();
-        return 1;
-    }
+
 }

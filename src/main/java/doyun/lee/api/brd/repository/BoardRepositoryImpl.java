@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NamedQuery;
 import javax.transaction.Transactional;
 import static doyun.lee.api.usr.domain.QUserVo.userVo;
+import static doyun.lee.api.prd.domain.QProduct.product;
 import doyun.lee.api.brd.domain.Board;
 import doyun.lee.api.brd.domain.BoardDto;
 import org.hibernate.annotations.Where;
@@ -68,6 +69,15 @@ public class BoardRepositoryImpl extends QuerydslRepositorySupport implements IB
 	@Override
 	public List<Board> reviewAll() {
 		return qf.selectFrom(board).where(board.brdKind.eq(2L)).orderBy(board.brdWrtDate.desc()).fetch();
+	}
+
+	@Override
+	public List<Board> reviewList() {
+		return qf.selectFrom(board)
+				.join(board.product, product)
+				.where(product.prdNo.eq(board.productNo))
+				.fetch();
+
 	}
 
 

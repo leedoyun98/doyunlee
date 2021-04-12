@@ -5,7 +5,8 @@ package doyun.lee.api.brd.controller;
 import java.time.LocalDate; 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;  
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import doyun.lee.api.brd.domain.Board;
@@ -13,6 +14,7 @@ import doyun.lee.api.brd.domain.BoardDto;
 import doyun.lee.api.brd.repository.BoardRepository;
 import doyun.lee.api.brd.service.BoardServiceImpl;
 import doyun.lee.api.cmm.controller.AbstractController;
+import doyun.lee.api.cmm.utl.Pagination;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -36,7 +38,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*",allowedHeaders = "*")
 @RequestMapping("/board") 
-public class BoardController extends AbstractController<Board> {
+public class BoardController  {
 	 private final BoardServiceImpl service;
 	 private final BoardRepository rep;
 	 private final ModelMapper modelMapper;
@@ -45,7 +47,7 @@ public class BoardController extends AbstractController<Board> {
 		return ResponseEntity.ok(service.save(t));
 	}
 	
-	@DeleteMapping("/delete")
+	@DeleteMapping("/delete/{brdNo}")
 	public ResponseEntity<Long> delete(@RequestBody Board brdNo) {
 		System.out.println("삭제");
 		return ResponseEntity.ok(service.delete(brdNo));
@@ -108,11 +110,21 @@ public class BoardController extends AbstractController<Board> {
 	}
 	@GetMapping("/review/all")
 	public ResponseEntity<List<Board>> reviewAll() {
-		System.out.println("리뷰 목록");
 
 		return ResponseEntity.ok(service.reviewAll());
 	}
+	@GetMapping("/review/list")
+	public ResponseEntity<List<Board>> reviewList() {
+		System.out.println("리뷰 목록");
 
+		return ResponseEntity.ok(service.reviewList());
+	}
 
+	@PostMapping("/paging")
+	public ResponseEntity<Map<String, Object>> paging(@RequestBody Pagination pagination,
+													  @PathVariable("page") Optional<Integer> page) {
+
+		return ResponseEntity.ok(service.paging(pagination, page));
+	}
 
 }

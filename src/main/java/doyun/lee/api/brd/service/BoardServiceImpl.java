@@ -4,10 +4,7 @@ package doyun.lee.api.brd.service;
 import java.time.LocalDate; 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List; 
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -19,6 +16,7 @@ import doyun.lee.api.brd.domain.Board;
 import doyun.lee.api.brd.domain.BoardDto;
 import doyun.lee.api.brd.repository.BoardRepository;
 import doyun.lee.api.cmm.service.AbstractService;
+import doyun.lee.api.cmm.utl.Pagination;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
@@ -73,7 +71,26 @@ public class BoardServiceImpl extends AbstractService<Board> implements BoardSer
 
 	}
 
-	
+	public List<Board> reviewList() {
+		return repository.reviewList();
+	}
+
+	@Override
+	public Map<String, Object> paging(Pagination pagination, Optional<Integer> userId) {
+		Map<String, Object> map = new HashMap<>();
+
+		List<Board> result = repository.findAll();
+		int pageSize = pagination.getPageSize();
+		int currentPage = pagination.getPageNum();
+		int totalCount = (int) repository.count();
+		System.out.println("pagesize= " + pageSize);
+		System.out.println("currentPage= " + currentPage);
+		System.out.println("totalCount= " + totalCount);
+		Pagination page = new Pagination(pageSize, currentPage, totalCount);
+		map.put("paging", page);
+		map.put("result", result);
+		return map;
+	}
 
 
 

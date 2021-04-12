@@ -3,6 +3,7 @@ package doyun.lee.api.ctg.controller;
 import java.util.List;
 import java.util.Optional;
 
+
 import doyun.lee.api.cmm.controller.AbstractController;
 import doyun.lee.api.ctg.domain.Category;
 import doyun.lee.api.ctg.service.CategoryServiceImpl;
@@ -15,14 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class CategoryController  {
+public class CategoryController extends AbstractController<Category> {
 	private final CategoryServiceImpl service;
 
 	@PostMapping("/save")
@@ -50,10 +50,10 @@ public class CategoryController  {
 		return ResponseEntity.ok(service.findById(id));
 	}
 
-//	@GetMapping("/exists/{id}")
-//	public ResponseEntity<Boolean> existById(@PathVariable long id) {
-//		return ResponseEntity.ok(service.existById(id));
-//	}
+	@GetMapping("/exists/{id}")
+	public ResponseEntity<Boolean> existsById(@PathVariable long id) {
+		return ResponseEntity.ok(service.existsById(id));
+	}
 
 	@GetMapping("/all")
 	public ResponseEntity<List<Category>> findAll() {

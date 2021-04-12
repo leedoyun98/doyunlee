@@ -1,9 +1,9 @@
 package doyun.lee.api.ctg.repository;
 
+
+import doyun.lee.api.ctg.domain.Category;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
-
-import com.amazonaws.services.alexaforbusiness.model.Category;
 
 @Repository
 public class CategoryRepositoryImpl extends QuerydslRepositorySupport implements ICategoryRepository {

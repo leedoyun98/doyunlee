@@ -53,11 +53,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/usr/signup").permitAll()//
                 .antMatchers("/board/*").permitAll()//
                 .antMatchers("/board/*/*").permitAll()//
-                .antMatchers("/usr/*").permitAll()//
                 .antMatchers("/replies/*").permitAll()//
                 .antMatchers("/replies/*/*").permitAll()//
-                .antMatchers("/products/*").permitAll()//
-                .antMatchers("/products/*/*").permitAll()//
+                .antMatchers("/product/*").permitAll()//
+                .antMatchers("/product/*/*").permitAll()//
                 .antMatchers("/h2-console/**/**").permitAll()
                 // Disallow everything else..
                 .anyRequest().authenticated();
