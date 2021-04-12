@@ -15,7 +15,7 @@ interface IProductRepository {
 }
 
 public interface ProductReporitory extends JpaRepository<Product, Long>, IProductRepository {
-	@Query(value = "update Product prd set prd.prd_name = :prdName, "+ "prd.ctg_name = :ctgName " + "prd.prd_price = :prdPrice, " + "prd.prd_inv = :prdInv " + "prd.prd_img = :prdImg"
+	@Query(value = "update Products prd set prd.prd_name = :prdName, "+ "prd.ctg_name = :ctgName " + "prd.prd_price = :prdPrice, " + "prd.prd_inv = :prdInv " + "prd.prd_img = :prdImg"
 					+ " where prd.prd_no = :prdNo", nativeQuery = true)
 	public long update(@Param("prdNo") long prdNo, @Param("ctgName") String ctgName, @Param("prdPrice") String prdPrice,
 					   @Param("prdInv") String prdInv, @Param("prdImg") String prdImg, @Param("prdName") String prdName);

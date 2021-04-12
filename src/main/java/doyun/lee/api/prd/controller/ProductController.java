@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 public class ProductController extends AbstractController<Product> {
